@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Converter</title>
+</head>
+<body>
+    <h1>Forex Converter</h1>
+    <h2>Result = {{rounded}} {{convto}}</h2>
+    <form action="/convert" method="POST">
+        <label for="convert-from">Convert From</label>
+        <input type="text" id="convert-from" name="from"> <br>
+        <label for="convert-to">Convert To</label>
+        <input type="text" id="convert-to" name="to"> <br>
+        <label for="amount">Amount</label>
+        <input type="text" id="amount" name="amount"> <br>
+        <button type="submit">Convert</button>
+    </form>
+
+</body>
+</html>
