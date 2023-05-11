@@ -8,12 +8,22 @@
 </head>
 <body>
     <h1>Forex Converter</h1>
+    <h2>{{err}}</h2>
     <h2>Result = {{rounded}} {{convto}}</h2>
+
     <form action="/convert" method="POST">
         <label for="convert-from">Convert From</label>
-        <input type="text" id="convert-from" name="from"> <br>
+            <select name="from" id="convert-from">
+            {% for symbol in symbols %}
+              <option value="{{ symbol }}" SELECTED>{{ symbol }}</option>
+            {% endfor %}     
+            </select><br>
         <label for="convert-to">Convert To</label>
-        <input type="text" id="convert-to" name="to"> <br>
+            <select name="to" id="convert-to">
+            {% for symbol in symbols %}
+              <option value="{{ symbol }}" SELECTED>{{ symbol }}</option>
+            {% endfor %}     
+            </select><br>
         <label for="amount">Amount</label>
         <input type="text" id="amount" name="amount"> <br>
         <button type="submit">Convert</button>
