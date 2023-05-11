@@ -8,31 +8,36 @@ symbols=[]
 
 @app.route("/")
 def homepage():
-    list = []
-    url = 'https://api.exchangerate.host/symbols'
-    response = requests.get(url)
-    data = response.json()
+    symbols_url = 'https://api.exchangerate.host/symbols'
+    symbols_response = requests.get(symbols_url)
+    data = symbols_response.json()
     symbols = dict.keys(data['symbols'])
 
-    print(symbols)
-
-    return render_template("index.html")
+    return render_template("index.html", symbols=symbols)
 
 @app.route('/convert', methods=['POST'])
 def convert():
-    print('Route found!')
+    try:
+        print('Route found!')
 
-    convfrom = request.form.get('from')
-    convto = request.form.get('to')
-    amount = request.form.get('amount')
+        convfrom = request.form.get('from')
+        convto = request.form.get('to')
+        amount = request.form.get('amount')
 
-    url = f'https://api.exchangerate.host/convert?from={convfrom}&to={convto}&amount={amount}'
-    response = requests.get(url)
-    data = response.json()
-    result = data['result']
-    rounded = round(result, 2)
-    print(rounded)
+        url = f'https://api.exchangerate.host/convert?from={convfrom}&to={convto}&amount={amount}'
+        response = requests.get(url)
+        data = response.json()
+        result = data['result']
+        rounded = round(result, 2)
+        print(rounded)
 
-    # print(convfrom, convto, amount)
+        symbols_url = 'https://api.exchangerate.host/symbols'
+        symbols_response = requests.get(symbols_url)
+        data = symbols_response.json()
+        symbols = dict.keys(data['symbols'])
     
-    return render_template('index.html', rounded=rounded, convto = convto)
+        return render_template('index.html', rounded=rounded, convto = convto, symbols=symbols)
+    
+    except TypeError:
+        err = 'Invalid amount'
+        return redirect('/')
